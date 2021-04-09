@@ -1,0 +1,218 @@
+<!--
+ACFinal
+Car searching database
+
+Revision History
+    Chang Anthony, 2019-04-14 : Created
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Car Search</title>
+
+    <!--jQuery-->
+    <script src="js/lib/jquery-2.1.4.js"></script>
+    <!--jQuery Mobile-->
+    <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+    <!--jQuery Validator-->
+    <script src="js/lib/jquery.validate.js"></script>
+    <!--jQuery Mobile stylesheet-->
+    <link rel="stylesheet" type="text/css" href="css/lib/jquery.mobile-1.4.5.css">
+
+    <!--our script files-->
+    <script src="js/ACdatabase.js"></script>
+    <script src="js/ACfeedbackDAL.js"></script>
+    <script src="js/ACutil.js"></script>
+    <script src="js/ACglobal.js"></script>
+    <script src="js/ACfacade.js"></script>
+
+    <!--our stylesheet-->
+    <link rel="stylesheet" type="text/css" href="css/ACmystyle.css">
+
+</head>
+<body>
+
+<!--Home Page-->
+<div data-role="page" id="ACHomePage">
+    <header data-position="fixed" data-role="header" data-theme="b">
+        <h1>Car Search</h1>
+        <div data-iconpos="top" data-role="navbar">
+            <ul>
+                <li><a class="ui-btn-active ui-state-persist" data-icon="home" data-theme="a"
+                       href="#ACHomePage">Home</a></li>
+                <li><a data-icon="plus" data-theme="a" href="#ACAddCarPage">Add</a></li>
+                <li><a data-icon="grid" data-theme="a" href="#ACListPage">Car List</a></li>
+                <li><a data-icon="gear" data-theme="a" href="#ACSettingsPage">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <h2>Car Search App</h2>
+        <p>
+            Welcome to the Car Search application. Have you ever been on the hunt for a car but you just don't have time
+            to navigate the convoluted car search websites? Car search put all your car searching needs in one place.
+            Please start by entering your postal code in the settings tab then add a car in the Add page.
+        </p>
+        <p align="center">
+            <img alt="Car Search Icon" height="80%" src="img/ACCarSearch.png" width="80%">
+        </p>
+        <p>
+            Please feel free to contact me if you have any suggestions!
+        </p>
+        <div>
+            <a data-icon="plus" data-iconpos="left" data-role="button" data-theme="a" href="tel: 5195901238"> Call:
+                519.590.1238</a>
+            <a data-icon="plus" data-iconpos="left" data-role="button" data-theme="a"
+               href="mailto: achang1921@conestogac.on.ca"> achang1921@conestoga.on.ca</a>
+            <p>Website:</p>
+            <a data-icon="plus" data-iconpos="left" data-role="button" data-theme="a"
+               href="https://www.conestogac.on.ca/"> Conestoga College</a>
+        </div>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h1>&copy; 2019 Anthony Chang</h1>
+    </footer>
+</div>
+
+<!--Add Car Page-->
+<div data-role="page" id="ACAddCarPage">
+    <header data-position="fixed" data-role="header" data-theme="b">
+        <h1>Add a Car</h1>
+        <div data-iconpos="top" data-role="navbar">
+            <ul>
+                <li><a data-icon="home" data-theme="a" href="#ACHomePage">Home</a></li>
+                <li><a class="ui-btn-active ui-state-persist" data-icon="plus" data-theme="a"
+                       href="#ACAddCarPage">Add</a></li>
+                <li><a data-icon="grid" data-theme="a" href="#ACListPage">Car List</a></li>
+                <li><a data-icon="gear" data-theme="a" href="#ACSettingsPage">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="ACAddForm" name="ACAddForm">
+            <label for="ACSelectMake">Make:</label>
+            <select id="ACSelectMake" name="ACSelectMake">
+            </select>
+
+            <label for="ACModel">Model:</label>
+            <input id="ACModel" name="ACModel" type="text">
+
+            <label for="ACYear">Year:</label>
+            <input id="ACYear" name="ACYear" type="number">
+
+            <label for="ACPostal">Postal Code:</label>
+            <input id="ACPostal" name="ACPostal" type="text">
+
+            <label for="ACTxtComment">Comments:</label>
+            <textarea id="ACTxtComment" name="ACTxtComment"></textarea>
+
+            <button type="button" id="ACBtnSave" name="ACBtnSave"
+                    style="width:100px" class="ui-btn-active">Save
+            </button>
+        </form>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h1>&copy; 2019 Anthony Chang</h1>
+    </footer>
+</div>
+
+<!--Car List Page-->
+<div data-role="page" id="ACListPage">
+    <header data-position="fixed" data-role="header" data-theme="b">
+        <h1>Your List of cars</h1>
+        <div data-iconpos="top" data-role="navbar">
+            <ul>
+                <li><a  data-icon="home" data-theme="a" href="#ACHomePage">Home</a></li>
+                <li><a data-icon="plus" data-theme="a" href="#ACAddCarPage">Add</a></li>
+                <li><a class="ui-btn-active ui-state-persist" data-icon="grid" data-theme="a"
+                       href="#ACListPage">Car List</a></li>
+                <li><a data-icon="gear" data-theme="a" href="#ACSettingsPage">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <ul class="ui-listview-inset" data-role="listview" id="ACCarList">
+        </ul>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h1>&copy; 2019 Anthony Chang</h1>
+    </footer>
+</div>
+
+<!--Car Modify Page-->
+<div data-role="page" id="ACModifyPage">
+    <header data-position="fixed" data-role="header" data-theme="b">
+        <h1>Modify Car</h1>
+        <div data-iconpos="top" data-role="navbar">
+            <ul>
+                <li><a  data-icon="home" data-theme="a" href="#ACHomePage">Home</a></li>
+                <li><a data-icon="plus" data-theme="a" href="#ACAddCarPage">Add</a></li>
+                <li><a class="ui-btn-active ui-state-persist" data-icon="grid" data-theme="a"
+                       href="#ACListPage">Car List</a></li>
+                <li><a data-icon="gear" data-theme="a" href="#ACSettingsPage">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="ACModForm" name="ACModForm">
+            <label for="ACSelectModMake">Make:</label>
+            <select id="ACSelectModMake" name="ACSelectModMake">
+            </select>
+
+            <label for="ACModModel">Model:</label>
+            <input id="ACModModel" name="ACModModel" type="text">
+
+            <label for="ACModYear">Year:</label>
+            <input id="ACModYear" name="ACModYear" type="number">
+
+            <label for="ACModPostal">Postal Code:</label>
+            <input id="ACModPostal" name="ACModPostal" type="text">
+
+            <label for="ACModTxtComment">Comments:</label>
+            <textarea id="ACModTxtComment" name="ACModTxtComment"></textarea>
+
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <button type="button" id="ACBtnCancel" name="ACBtnCancel" style="background-color:yellow">Cancel
+                </button>
+                <button type="button" data-theme="b" id="ACBtnDelete" name="ACBtnDelete">Delete</button>
+                <button type="button" class="ui-btn-active" id="ACBtnUpdate" name="ACBtnUpdate">Update</button>
+            </fieldset>
+        </form>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h1>&copy; 2019 Anthony Chang</h1>
+    </footer>
+</div>
+
+<!--Settings Page-->
+<div data-role="page" id="ACSettingsPage">
+    <header data-position="fixed" data-role="header" data-theme="b">
+        <h1>Settings</h1>
+        <div data-iconpos="top" data-role="navbar">
+            <ul>
+                <li><a data-icon="home" data-theme="a" href="#ACHomePage">Home</a></li>
+                <li><a data-icon="plus" data-theme="a" href="#ACAddCarPage">Add</a></li>
+                <li><a data-icon="grid" data-theme="a" href="#ACListPage">Car List</a></li>
+                <li><a class="ui-btn-active ui-state-persist" data-icon="gear" data-theme="a" href="#ACSettingsPage">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="ACSettingsForm" name="ACSettingsForm">
+            <label for="ACDefaultPostal">Default Postal Code:</label>
+            <input id="ACDefaultPostal" name="ACDefaultPostal" type="text">
+            <button type="button" class="ui-btn-active" id="ACBtnSaveDefaults" name="ACBtnSaveDefaults">Save Defaults
+            </button>
+            <button type="button" data-theme="b" id="ACBtnClearDatabase" name="ACBtnClearDatabase">Clear Car Search List
+            </button>
+        </form>
+
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h1>&copy; 2019 Anthony Chang</h1>
+    </footer>
+</div>
+</body>
+</html>
